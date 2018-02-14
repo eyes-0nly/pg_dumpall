@@ -4,7 +4,7 @@
 
 import os
 
-print("Enter path to dump:", end=" ")
+print("Enter the dump file path:", end=" ")
 dump = input()
 dirname = os.path.dirname(dump)
 print("Enter dbname:", end=" ")
