@@ -3,17 +3,17 @@
 
 
 import os
+import argparse
 
-print("Enter the dump file path:", end=" ")
-dump = input()
-dirname = os.path.dirname(dump)
-print("Enter dbname:", end=" ")
-name = input()
-with open(dump) as dumpall, open('{}/dump_{}'.format(dirname,
-                                 name), 'w') as dumpdb:
+parser = argparse.ArgumentParser()
+parser.add_argument("name", help="Database name")
+parser.add_argument("path", help="Path to the pg_dumpall file")
+args = parser.parse_args()
+dirname = os.path.dirname(args.path)
+with open(args.path) as dumpall, open('{}/dump_{}'.format(dirname, args.name), 'w') as dumpdb:
     copy = False
     for line in dumpall:
-        if line.strip() == "\connect {}".format(name):
+        if line.strip() == "\connect {}".format(args.name):
             copy = True
         elif line.strip() == "-- PostgreSQL database dump complete":
             copy = False
